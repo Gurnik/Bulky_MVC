@@ -3,8 +3,9 @@ using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BulkyWeb.Controllers
+namespace BulkyWeb.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -18,7 +19,8 @@ namespace BulkyWeb.Controllers
             return View(objCategoryList);
         }
 
-        public IActionResult Create() { 
+        public IActionResult Create()
+        {
             return View();
         }
 
@@ -42,9 +44,9 @@ namespace BulkyWeb.Controllers
 
         public IActionResult Edit(int? id)
         {
-            if(id == null || id == 0) 
+            if (id == null || id == 0)
             {
-                return NotFound();    
+                return NotFound();
             }
             Category? categoryFromBb = _unitOfWork.Category.Get(u => u.Id == id);
             //Category? categoryFromBb1 = _db.Categories.FirstOrDefault(u => u.Id == id);
@@ -89,7 +91,7 @@ namespace BulkyWeb.Controllers
         public IActionResult DeletePOST(int? id)
         {
             Category? obj = _unitOfWork.Category.Get(u => u.Id == id);
-            if(obj == null) 
+            if (obj == null)
             {
                 return NotFound();
             }
